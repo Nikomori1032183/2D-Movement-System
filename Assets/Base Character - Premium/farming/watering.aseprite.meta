@@ -1,0 +1,811 @@
+fileFormatVersion: 2
+guid: b3e110ef0eaad8b4fa5777766e05fc1a
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: watering_Frame_18
+    originalName: 
+    pivot: {x: 0.4615384, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 59
+      width: 13
+      height: 14
+    spriteID: e997f312c9aa9f74abb23ddd1034345f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 59}
+  - name: watering_Frame_19
+    originalName: 
+    pivot: {x: 0.4615384, y: -2.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 125
+      width: 13
+      height: 16
+    spriteID: f6a117cc2ba26a84ba2e838a5daecc35
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 125}
+  - name: watering_Frame_20
+    originalName: 
+    pivot: {x: 0.4615384, y: -2.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 149
+      width: 13
+      height: 16
+    spriteID: ba5cff7617a21464a9b8e852e2aba1b7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 149}
+  - name: watering_Frame_21
+    originalName: 
+    pivot: {x: 0.4615384, y: -1.9411765}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 100
+      width: 13
+      height: 17
+    spriteID: ef4443aea62ccda4fbae66092fb85b04
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 100}
+  - name: watering_Frame_22
+    originalName: 
+    pivot: {x: 0.4615384, y: -2.0625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 173
+      width: 13
+      height: 16
+    spriteID: c540133fe26bafc44b49608e5958bc61
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 173}
+  - name: watering_Frame_23
+    originalName: 
+    pivot: {x: 0.4615384, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 81
+      width: 13
+      height: 14
+    spriteID: e7eb4dafbb9e8e9428da984bf2609a25
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 81}
+  - name: watering_Frame_0
+    originalName: 
+    pivot: {x: 0.35714287, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 197
+      width: 14
+      height: 14
+    spriteID: c4e2bf4f44299cb4b854baf36c157591
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 197}
+  - name: watering_Frame_1
+    originalName: 
+    pivot: {x: 0.2173913, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 81
+      width: 23
+      height: 14
+    spriteID: 0d4ad555e9c5f254fa6695cef7d8beba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 81}
+  - name: watering_Frame_2
+    originalName: 
+    pivot: {x: 0.2173913, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 103
+      width: 23
+      height: 14
+    spriteID: f8c71b360d7f66142a966db210a80ad9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 103}
+  - name: watering_Frame_3
+    originalName: 
+    pivot: {x: 0.20833333, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 24
+      height: 14
+    spriteID: 5b5fae82376d5984aab41f8536ee74a9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: watering_Frame_4
+    originalName: 
+    pivot: {x: 0.22727273, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 233
+      width: 22
+      height: 14
+    spriteID: d0c5757d91ca580449a1696b764d397a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 233}
+  - name: watering_Frame_5
+    originalName: 
+    pivot: {x: 0.22727273, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 4
+      width: 22
+      height: 14
+    spriteID: c8812ffd93c3c60458bc2494d81b23f5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 4}
+  - name: watering_Frame_6
+    originalName: 
+    pivot: {x: 0.57142854, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 219
+      width: 14
+      height: 14
+    spriteID: ee6a9254a5f7eca4f9b308697453417f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 219}
+  - name: watering_Frame_7
+    originalName: 
+    pivot: {x: 0.73913044, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 125
+      width: 23
+      height: 14
+    spriteID: 694e3c6828a5e4f408e3196c286911c9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 125}
+  - name: watering_Frame_8
+    originalName: 
+    pivot: {x: 0.73913044, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 147
+      width: 23
+      height: 14
+    spriteID: 8959869af2d7702468c7146d800a23d8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 147}
+  - name: watering_Frame_9
+    originalName: 
+    pivot: {x: 0.74999994, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 26
+      width: 24
+      height: 14
+    spriteID: b0f717f896721194bb98b3a85b9f3fa1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 26}
+  - name: watering_Frame_10
+    originalName: 
+    pivot: {x: 0.7272727, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 26
+      width: 22
+      height: 14
+    spriteID: b3d79514298268242b327c1767384656
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 26}
+  - name: watering_Frame_11
+    originalName: 
+    pivot: {x: 0.7272727, y: -2.357143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 48
+      width: 22
+      height: 14
+    spriteID: 71905cbdb621b624b9499092358e1275
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 48}
+  - name: watering_Frame_12
+    originalName: 
+    pivot: {x: 0.4615384, y: -2.1333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 36
+      width: 13
+      height: 15
+    spriteID: 3279432ace0bf4345bfbfe73bd73dbf5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 36}
+  - name: watering_Frame_13
+    originalName: 
+    pivot: {x: 0.4615384, y: -0.9583333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 169
+      width: 13
+      height: 24
+    spriteID: 90baad96b63747548a4c92ce30742cbd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 169}
+  - name: watering_Frame_14
+    originalName: 
+    pivot: {x: 0.4615384, y: -0.9583333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 201
+      width: 13
+      height: 24
+    spriteID: 0f55f0c9bb5eec0418273063811f0aea
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 201}
+  - name: watering_Frame_15
+    originalName: 
+    pivot: {x: 0.4615384, y: -0.88000005}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 48
+      width: 13
+      height: 25
+    spriteID: 1b4aaac70a2899f4c843292ff0bbbfce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 48}
+  - name: watering_Frame_16
+    originalName: 
+    pivot: {x: 0.4615384, y: -0.9583333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 36
+      y: 4
+      width: 13
+      height: 24
+    spriteID: 86e3e384a950dd64788bde286ee7ebec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 36, y: 4}
+  - name: watering_Frame_17
+    originalName: 
+    pivot: {x: 0.4615384, y: -1.1363636}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 70
+      width: 13
+      height: 22
+    spriteID: 3fa54cd8b7a9f0b43be80106e549b935
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 57, y: 70}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -816125663
+    name: watering
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: watering_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 34
+        y: 33
+        width: 13
+        height: 14
+      spriteId: e997f312c9aa9f74abb23ddd1034345f
+    - name: watering_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 34
+        y: 33
+        width: 13
+        height: 16
+      spriteId: f6a117cc2ba26a84ba2e838a5daecc35
+    - name: watering_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 34
+        y: 33
+        width: 13
+        height: 16
+      spriteId: ba5cff7617a21464a9b8e852e2aba1b7
+    - name: watering_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 34
+        y: 33
+        width: 13
+        height: 17
+      spriteId: ef4443aea62ccda4fbae66092fb85b04
+    - name: watering_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 34
+        y: 33
+        width: 13
+        height: 16
+      spriteId: c540133fe26bafc44b49608e5958bc61
+    - name: watering_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 34
+        y: 33
+        width: 13
+        height: 14
+      spriteId: e7eb4dafbb9e8e9428da984bf2609a25
+    - name: watering_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 35
+        y: 33
+        width: 14
+        height: 14
+      spriteId: c4e2bf4f44299cb4b854baf36c157591
+    - name: watering_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 35
+        y: 33
+        width: 23
+        height: 14
+      spriteId: 0d4ad555e9c5f254fa6695cef7d8beba
+    - name: watering_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 35
+        y: 33
+        width: 23
+        height: 14
+      spriteId: f8c71b360d7f66142a966db210a80ad9
+    - name: watering_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 35
+        y: 33
+        width: 24
+        height: 14
+      spriteId: 5b5fae82376d5984aab41f8536ee74a9
+    - name: watering_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 35
+        y: 33
+        width: 22
+        height: 14
+      spriteId: d0c5757d91ca580449a1696b764d397a
+    - name: watering_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 35
+        y: 33
+        width: 22
+        height: 14
+      spriteId: c8812ffd93c3c60458bc2494d81b23f5
+    - name: watering_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 32
+        y: 33
+        width: 14
+        height: 14
+      spriteId: ee6a9254a5f7eca4f9b308697453417f
+    - name: watering_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 23
+        y: 33
+        width: 23
+        height: 14
+      spriteId: 694e3c6828a5e4f408e3196c286911c9
+    - name: watering_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 23
+        y: 33
+        width: 23
+        height: 14
+      spriteId: 8959869af2d7702468c7146d800a23d8
+    - name: watering_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 22
+        y: 33
+        width: 24
+        height: 14
+      spriteId: b0f717f896721194bb98b3a85b9f3fa1
+    - name: watering_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 24
+        y: 33
+        width: 22
+        height: 14
+      spriteId: b3d79514298268242b327c1767384656
+    - name: watering_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 24
+        y: 33
+        width: 22
+        height: 14
+      spriteId: 71905cbdb621b624b9499092358e1275
+    - name: watering_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 34
+        y: 32
+        width: 13
+        height: 15
+      spriteId: 3279432ace0bf4345bfbfe73bd73dbf5
+    - name: watering_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 34
+        y: 23
+        width: 13
+        height: 24
+      spriteId: 90baad96b63747548a4c92ce30742cbd
+    - name: watering_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 34
+        y: 23
+        width: 13
+        height: 24
+      spriteId: 0f55f0c9bb5eec0418273063811f0aea
+    - name: watering_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 34
+        y: 22
+        width: 13
+        height: 25
+      spriteId: 1b4aaac70a2899f4c843292ff0bbbfce
+    - name: watering_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 34
+        y: 23
+        width: 13
+        height: 24
+      spriteId: 86e3e384a950dd64788bde286ee7ebec
+    - name: watering_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 34
+        y: 25
+        width: 13
+        height: 22
+      spriteId: 3fa54cd8b7a9f0b43be80106e549b935
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 80, y: 80}
