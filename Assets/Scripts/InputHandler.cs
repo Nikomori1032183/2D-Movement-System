@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,9 @@ public class InputHandler : MonoBehaviour
 {
     public static InputHandler current;
 
-    private List<KeyCode> currentKeys = new List<KeyCode>();
+    private List<KeyCode> heldKeys = new List<KeyCode>();
+
+    [SerializeField] private bool debugging;
 
     void Awake()
     {
@@ -17,57 +20,116 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            currentKeys.Add(KeyCode.W);
+            heldKeys.Add(KeyCode.W);
+            PressKey(KeyCode.W);
         }
 
         else if (Input.GetKeyUp(KeyCode.W))
         {
-            currentKeys.Remove(KeyCode.W);
+            heldKeys.Remove(KeyCode.W);
+            ReleaseKey(KeyCode.W);
         }
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            currentKeys.Add(KeyCode.A);
+            heldKeys.Add(KeyCode.A);
+            PressKey(KeyCode.A);
         }
 
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            currentKeys.Remove(KeyCode.A);
+            heldKeys.Remove(KeyCode.A);
+            ReleaseKey(KeyCode.A);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            currentKeys.Add(KeyCode.S);
+            heldKeys.Add(KeyCode.S);
+            PressKey(KeyCode.S);
         }
 
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            currentKeys.Remove(KeyCode.S);
+            heldKeys.Remove(KeyCode.S);
+            ReleaseKey(KeyCode.S);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            currentKeys.Add(KeyCode.D);
+            heldKeys.Add(KeyCode.D);
+            PressKey(KeyCode.D);
         }
 
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            currentKeys.Remove(KeyCode.D);
+            heldKeys.Remove(KeyCode.D);
+            ReleaseKey(KeyCode.D);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            currentKeys.Add(KeyCode.LeftShift);
+            heldKeys.Add(KeyCode.LeftShift);
+            PressKey(KeyCode.LeftShift);
         }
 
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            currentKeys.Remove(KeyCode.LeftShift);
+            heldKeys.Remove(KeyCode.LeftShift);
+            ReleaseKey(KeyCode.LeftShift);
         }
     }
 
-    public List<KeyCode> GetCurrentKeys()
+    public Vector2 GetMovement()
     {
-        return currentKeys;
+        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
+
+    public List<KeyCode> GetHeldKeys()
+    {
+        return heldKeys;
+    }
+
+    public bool IsKeyHeld(KeyCode keyCode)
+    {
+        if (heldKeys.Contains(keyCode))
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+    }
+
+    public event Action<KeyCode> onPressKey;
+    public void PressKey(KeyCode keyCode)
+    {
+        if (debugging)
+        {
+            Debug.Log("PressKey " + keyCode.ToString());
+        }
+
+        if (onPressKey != null)
+        {
+            onPressKey(keyCode);
+        }
+    }
+
+    public event Action<KeyCode> onReleaseKey;
+    public void ReleaseKey(KeyCode keyCode)
+    {
+        if (debugging)
+        {
+            Debug.Log("ReleaseKey " + keyCode.ToString());
+        }
+
+        if (onReleaseKey != null)
+        {
+            onReleaseKey(keyCode);
+        }
+    }
+
+    // Currently with the way this works anything that depends on a input would be told whenever any of the inputs are pressed, even if its not the desired inputs, if one wanted to make that not happen for efficiency
+    // they could create seperate events for every key.
 }

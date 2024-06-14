@@ -6,166 +6,170 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rigidBody;
     Animator animator;
+    TrailRenderer trailRenderer;
 
-    [SerializeField] float walkSpeed;
+    [SerializeField] float maxMoveSpeed;
+    [SerializeField] float acceleration;
+    [SerializeField] float deceleration;
     [SerializeField] float dashSpeed;
 
-    enum ActionState
-    {
-        None, Walking, Dashing
-    }
-
-    ActionState actionState;
-
-    enum DirectionState
-    {
-        North, North_East, East, South_East, South, South_West, West, North_West
-    }
-
-    DirectionState directionState;
+    private List<KeyCode> currentDirectionKeys = new List<KeyCode>();
+    private List<KeyCode> currentDirection = new List<KeyCode>();
 
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        trailRenderer = GetComponent<TrailRenderer>();
+
+        InputHandler.current.onPressKey += KeyPressed;
+        InputHandler.current.onReleaseKey += KeyReleased;
     }
 
     void Update()
     {
-        InputCheck();
-        Movement();
+        MovementCheck();
     }
 
-    private void InputCheck()
+    private void MovementCheck()
     {
-        List<KeyCode> currentKeys = InputHandler.current.GetCurrentKeys();
-
-        if (currentKeys.Contains(KeyCode.W))
+        if (currentDirectionKeys.Count > 0)
         {
-            actionState = ActionState.Walking;
-            if (currentKeys.Contains(KeyCode.A))
-            {
-                directionState = DirectionState.North_West;
-            }
-
-            if (currentKeys.Contains(KeyCode.D))
-            {
-                directionState = DirectionState.North_East;
-            }
-
-            else
-            {
-                directionState = DirectionState.North;
-            }
+            animator.SetBool("Moving", true);
+            Move();
         }
 
-        else if (currentKeys.Contains(KeyCode.S))
+        else
         {
-            actionState = ActionState.Walking;
-            if (currentKeys.Contains(KeyCode.A))
-            {
-                directionState = DirectionState.South_West;
-            }
-
-            if (currentKeys.Contains(KeyCode.D))
-            {
-                directionState = DirectionState.South_East;
-            }
-
-            else
-            {
-                directionState = DirectionState.South;
-            }
-        }
-
-        else if (currentKeys.Contains(KeyCode.A))
-        {
-            actionState = ActionState.Walking;
-            directionState = DirectionState.West;
-        }
-
-        else if (currentKeys.Contains(KeyCode.D))
-        {
-            actionState = ActionState.Walking;
-            directionState = DirectionState.East;
-        }
-
-        else if (actionState != ActionState.None)
-        {
-            actionState = ActionState.None;
-        }
-
-        if (currentKeys.Contains(KeyCode.LeftShift))
-        {
-            actionState = ActionState.Dashing;
+            animator.SetBool("Moving", false);
         }
     }
 
-    private void Movement()
+    private void UpdateAnimatorDirection()
     {
-        //ResetAnimatorBools();
+        animator.SetBool("W", false);
+        animator.SetBool("A", false);
+        animator.SetBool("S", false);
+        animator.SetBool("D", false);
 
-        switch (directionState)
+        for (int i = 0; i < currentDirection.Count; i++)
         {
-            case DirectionState.North:
-                Debug.Log("North");
-                animator.SetBool("North", true);
-                break;
+            switch (currentDirection[i])
+            {
+                case KeyCode.W:
+                    animator.SetBool("W", true);
+                    break;
 
-            case DirectionState.North_East:
-                animator.SetBool("North_East", true);
-                break;
+                case KeyCode.A:
+                    animator.SetBool("A", true);
+                    break;
 
-            case DirectionState.East:
-                animator.SetBool("East", true);
-                break;
+                case KeyCode.S:
+                    animator.SetBool("S", true);
+                    break;
 
-            case DirectionState.South_East:
-                animator.SetBool("South_East", true);
-                break;
-
-            case DirectionState.South:
-                animator.SetBool("South", true);
-                break;
-
-            case DirectionState.South_West:
-                animator.SetBool("South_West", true);
-                break;
-
-            case DirectionState.West:
-                animator.SetBool("West", true);
-                break;
-
-            case DirectionState.North_West:
-                animator.SetBool("North_West", true);
-                break;
-        }
-
-        switch (actionState)
-        {
-            case ActionState.None:
-                
-                break;
-
-            case ActionState.Walking:
-
-                break;
-
-            case ActionState.Dashing:
-
-                break;
+                case KeyCode.D:
+                    animator.SetBool("D", true);
+                    break;
+            }
         }
     }
 
-    private void ResetAnimatorBools()
+    private void SetCurrentDirection()
     {
-        animator.SetBool("North", false);
-        animator.SetBool("North_East", false);
-        animator.SetBool("East", false);
-        animator.SetBool("South_East", false);
-        animator.SetBool("South", false);
-        animator.SetBool("South_West", false);
-        animator.SetBool("West", false);
-        animator.SetBool("North_West", false);
+        if (currentDirectionKeys.Count > 1)
+        {
+            currentDirection.Clear();
+            currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
+            currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 2]);
+        }
+        
+        else if (currentDirectionKeys.Count > 0)
+        {
+            currentDirection.Clear();
+            currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
+        }
+
+        UpdateAnimatorDirection();
+    }
+
+    //private IEnumerator DirectionBuffer()
+    //{
+    //    directionBuffering = true;
+    //    yield return new WaitForSeconds(0.5f);
+    //    directionBuffering = false;
+    //}
+
+    public List<KeyCode> GetCurrentDirection()
+    {
+        return currentDirection;
+    }
+
+    private void KeyPressed(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.W:
+                currentDirectionKeys.Add(KeyCode.W);
+                break;
+            case KeyCode.A:
+                currentDirectionKeys.Add(KeyCode.A);
+                break;
+            case KeyCode.S:
+                currentDirectionKeys.Add(KeyCode.S);
+                break;
+            case KeyCode.D:
+                currentDirectionKeys.Add(KeyCode.D);
+                break;
+            case KeyCode.LeftShift:
+                Dash();
+                break;
+            default:
+                break;
+        }
+
+        SetCurrentDirection();
+    }
+
+    private void KeyReleased(KeyCode keyCode)
+    {
+        switch (keyCode)
+        {
+            case KeyCode.W:
+                currentDirectionKeys.Remove(KeyCode.W);
+                break;
+            case KeyCode.A:
+                currentDirectionKeys.Remove(KeyCode.A);
+                break;
+            case KeyCode.S:
+                currentDirectionKeys.Remove(KeyCode.S);
+                break;
+            case KeyCode.D:
+                currentDirectionKeys.Remove(KeyCode.D);
+                break;
+        }
+
+        SetCurrentDirection();
+    }
+
+    private void Move()
+    {
+        if (InputHandler.current.IsKeyHeld(KeyCode.W))
+        {
+            if (InputHandler.current.IsKeyHeld(KeyCode.A))
+            {
+
+            }
+
+            else if (InputHandler.current.IsKeyHeld(KeyCode.D))
+            {
+
+            }
+        }
+    }
+
+    private void Dash()
+    {
+        // move set distance in current direction faster than normal speed
     }
 }
