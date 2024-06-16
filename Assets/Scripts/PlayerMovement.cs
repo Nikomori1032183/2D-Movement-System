@@ -21,16 +21,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AnimationCurve decelerationCurve;
 
     [SerializeField] float dashSpeed;
-    
     [EndFoldout]
-
-    //[Foldout("Info")]
-    //[SerializeField] Vector2 velocity = new Vector2(0, 0);
-    //[EndFoldout]
 
     // Other Variables
     private List<KeyCode> currentDirectionKeys = new List<KeyCode>();
     private List<KeyCode> currentDirection = new List<KeyCode>();
+
+    private bool walking;
 
     private void Start()
     {
@@ -46,9 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        DirectionInputCheck();
-        
-        Move();
+        MovementCheck();
     }
 
     #region Input
@@ -99,13 +94,36 @@ public class PlayerMovement : MonoBehaviour
         SetCurrentDirection();
     }
 
+    private void MovementCheck() // Check if player is pressing any direction keys
+    {
+        if (currentDirectionKeys.Count > 0) // If they are switch to walking animations
+        {
+            animator.SetBool("Moving", true);
+        }
+
+        else // If they arent switch to idle animations
+        {
+            animator.SetBool("Moving", false);
+        }
+    }
+
     private void SetCurrentDirection() // Set the current direction
     {
+        Vector2 previousDirection = GetCurrentDirectionVector();
+
         if (currentDirectionKeys.Count > 1) // If there are atleast 2 direction keys currently being pressed, set the direction to the two latest ones
         {
             currentDirection.Clear();
             currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
             currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 2]);
+
+            ChangeDirection(previousDirection, GetCurrentDirectionVector());
+
+            if (!walking)
+            {
+                Accelerate();
+                walking = true;
+            }
         }
 
         else if (currentDirectionKeys.Count > 0) // Else if theres only 1 set it to that
@@ -113,9 +131,25 @@ public class PlayerMovement : MonoBehaviour
             currentDirection.Clear();
             currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
 
+            ChangeDirection(previousDirection, GetCurrentDirectionVector());
+
+            if (!walking)
+            {
+                Accelerate();
+                walking = true;
+            }
         }
 
-        // If theres is none the current direction remains the same
+        else // If theres is none the current direction remains the same
+        {
+            if (walking)
+            {
+                Decelerate();
+                walking = false;
+            }
+        }
+
+        
 
         UpdateAnimatorDirection();
     }
@@ -151,86 +185,71 @@ public class PlayerMovement : MonoBehaviour
         return directionVector;
     }
 
-    private void DirectionInputCheck() // Check if player should be moving
-    {
-        if (currentDirectionKeys.Count > 0) // If any direction keys are being pressed, Set animator moving bool to true & run Move()
-        {
-            animator.SetBool("Moving", true);
-            //Move();
-        }
-
-        else // Else, Set animator moving bool to false
-        {
-            animator.SetBool("Moving", false);
-        }
-    }
     #endregion
 
     #region Movement
     private void Move()
     {
-        //rigidBody.velocity = velocity;
-
-        //Vector2.SmoothDamp(new Vector2(0, 0), new Vector2(1, 0), ref velocity, 1f);
-        //rigidBody.velocity = velocity;
-
-
         //accelerate quickly to max speed
         //move at max speed in current direction
         // decelerate quick but a bit slower to 0
     }
-    //private IEnumerator LerpVelocity(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
-    //{
-        
-    //    {
-    //        float t = timeElapsed / duration;
 
-    //        t = curve.Evaluate(t); 
-
-    //        rigidBody.velocity = Vector2.Lerp(startVelocity, endVelocity, t);
-    //        timeElapsed += Time.deltaTime;
-    //    }
-
-    //    //rigidBody.velocity = endVelocity;
-
-    //    yield return null;
-    //}
-
-
-    private IEnumerator LerpVelocity(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
+    private IEnumerator LerpVelocity(Vector2 startVelocity, float duration, AnimationCurve curve)
     {
         float speed = 0;
         float timeElapsed = 0;
         
         while (timeElapsed < duration)
         {
-            //Debug.Log(Mathf.InverseLerp(0, duration, timeElapsed));
             speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
-            Debug.Log(GetCurrentDirectionVector());
+            rigidBody.velocity = Vector2.Lerp(startVelocity, GetCurrentDirectionVector().normalized * maxSpeed, speed);
+            timeElapsed += Time.deltaTime;
+            Debug.Log("mag + " + rigidBody.velocity.magnitude);
+            yield return new WaitForFixedUpdate();
+        }
+
+        rigidBody.velocity = GetCurrentDirectionVector() * maxSpeed;
+    }
+
+    private IEnumerator LerpVelocity(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
+    {
+        float speed = 0;
+        float timeElapsed = 0;
+
+        while (timeElapsed < duration)
+        {
+            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
             rigidBody.velocity = Vector2.Lerp(startVelocity, endVelocity, speed);
             timeElapsed += Time.deltaTime;
 
             yield return new WaitForFixedUpdate();
         }
+
+        rigidBody.velocity = endVelocity;
     }
 
     [Button]
     private void Accelerate()
     {
-        StartCoroutine(LerpVelocity(rigidBody.velocity, GetCurrentDirectionVector() * maxSpeed, accelerationTime, accelerationCurve));
+        //Debug.Log("Accelerate");
+        StartCoroutine(LerpVelocity(rigidBody.velocity, accelerationTime, accelerationCurve));
     }
 
     [Button]
     private void Decelerate()
     {
+        //Debug.Log("Decelerate");
         StartCoroutine(LerpVelocity(rigidBody.velocity, Vector2.zero, decelerationTime, decelerationCurve));
     }
 
-    private void ChangeDirection()
+    private void ChangeDirection(Vector2 previousDirection, Vector2 newDirection)
     {
-
+        if (previousDirection != newDirection)
+        {
+            rigidBody.velocity = newDirection * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
+        }
     }
-
 
     private void Dash()
     {
