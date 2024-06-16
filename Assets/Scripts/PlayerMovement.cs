@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
     // Other Variables
     private List<KeyCode> currentDirectionKeys = new List<KeyCode>();
     private List<KeyCode> currentDirection = new List<KeyCode>();
-    float timeElapsed;
 
     private void Start()
     {
@@ -43,8 +42,6 @@ public class PlayerMovement : MonoBehaviour
         // Add Listeners To Events
         InputHandler.current.onPressKey += KeyPressed;
         InputHandler.current.onReleaseKey += KeyReleased;
-
-        timeElapsed = 0;
     }
 
     void FixedUpdate()
@@ -52,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         DirectionInputCheck();
         
         Move();
-        LerpVelocity2(Vector2.zero, new Vector2(0,1) * maxSpeed, accelerationTime, accelerationCurve);
     }
 
     #region Input
@@ -183,52 +179,51 @@ public class PlayerMovement : MonoBehaviour
         //move at max speed in current direction
         // decelerate quick but a bit slower to 0
     }
+    //private IEnumerator LerpVelocity(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
+    //{
+        
+    //    {
+    //        float t = timeElapsed / duration;
+
+    //        t = curve.Evaluate(t); 
+
+    //        rigidBody.velocity = Vector2.Lerp(startVelocity, endVelocity, t);
+    //        timeElapsed += Time.deltaTime;
+    //    }
+
+    //    //rigidBody.velocity = endVelocity;
+
+    //    yield return null;
+    //}
+
+
     private IEnumerator LerpVelocity(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
     {
+        float speed = 0;
+        float timeElapsed = 0;
         
+        while (timeElapsed < duration)
         {
-            float t = timeElapsed / duration;
-
-            t = curve.Evaluate(t); 
-
-            rigidBody.velocity = Vector2.Lerp(startVelocity, endVelocity, t);
-            timeElapsed += Time.deltaTime;
-        }
-
-        //rigidBody.velocity = endVelocity;
-
-        yield return null;
-    }
-
-
-    private void LerpVelocity2(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
-    {
-        float speed;
-
-        
-        if (timeElapsed < duration)
-        {
-            Debug.Log(Mathf.InverseLerp(0, duration, timeElapsed));
+            //Debug.Log(Mathf.InverseLerp(0, duration, timeElapsed));
             speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
-            rigidBody.velocity = (new Vector2(0,1) * maxSpeed) * speed;
+            Debug.Log(GetCurrentDirectionVector());
+            rigidBody.velocity = Vector2.Lerp(startVelocity, endVelocity, speed);
             timeElapsed += Time.deltaTime;
-        }
 
-        //yield return null;
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     [Button]
     private void Accelerate()
     {
-        //timeElapsed = 0;
-        //LerpVelocity2(rigidBody.velocity, GetCurrentDirectionVector() * maxSpeed, accelerationTime, accelerationCurve));
-        //StartCoroutine(LerpVelocity2(rigidBody.velocity, GetCurrentDirectionVector() * maxSpeed, accelerationTime, accelerationCurve));
+        StartCoroutine(LerpVelocity(rigidBody.velocity, GetCurrentDirectionVector() * maxSpeed, accelerationTime, accelerationCurve));
     }
 
     [Button]
     private void Decelerate()
     {
-        //StartCoroutine(LerpVelocity2(rigidBody.velocity, Vector2.zero, decelerationTime, decelerationCurve));
+        StartCoroutine(LerpVelocity(rigidBody.velocity, Vector2.zero, decelerationTime, decelerationCurve));
     }
 
     private void ChangeDirection()
