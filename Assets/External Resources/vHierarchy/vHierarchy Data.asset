@@ -20,17 +20,20 @@ MonoBehaviour:
         keys:
         - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-519420028-0
         - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-257667280-0
+        - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-6969460405801029163-0
         values:
         - iColor: 5
           icon: Camera Icon
         - iColor: 8
-          icon: 
-      goDatasByInstanceId:
-        keys: 009bfeffd6b20000d0b20000
-        values:
-        - iColor: 5
+          icon: StandaloneInputModule Icon
+        - iColor: 0
           icon: AvatarMask On Icon
+      goDatasByInstanceId:
+        keys: 666100006061000076610000
+        values:
         - iColor: 5
           icon: Camera Icon
         - iColor: 8
-          icon: 
+          icon: StandaloneInputModule Icon
+        - iColor: 0
+          icon: AvatarMask On Icon
