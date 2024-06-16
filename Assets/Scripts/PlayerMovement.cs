@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using VInspector;
 
+// TODO
+
+// Features
+// Dash, SFX
+
+// Known Bugs
+// Weird Speed Changes, change direction needs to transfer to a normalized version of velocity when changing to a diagonal direction
+// Pressing three keys in order and then releasing the middle one sets the direction to the first one when it should set it to just the last one
+// Animation Not Matching Movement, could be caused/fixe by above
+
 public class PlayerMovement : MonoBehaviour
 {
     // Components
@@ -136,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
             if (!walking)
             {
                 Accelerate();
-                walking = true;
             }
         }
 
@@ -145,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
             if (walking)
             {
                 Decelerate();
-                walking = false;
             }
         }
 
@@ -195,13 +203,26 @@ public class PlayerMovement : MonoBehaviour
         // decelerate quick but a bit slower to 0
     }
 
-    private IEnumerator LerpVelocity(Vector2 startVelocity, float duration, AnimationCurve curve)
+    [Button]
+    private void Accelerate()
+    {
+        //Debug.Log("Accelerate");
+        StartCoroutine(Accelerate(rigidBody.velocity, accelerationTime, accelerationCurve));
+    }
+
+    private IEnumerator Accelerate(Vector2 startVelocity, float duration, AnimationCurve curve)
     {
         float speed = 0;
         float timeElapsed = 0;
-        
+        walking = true;
+
         while (timeElapsed < duration)
         {
+            if (currentDirectionKeys.Count == 0)
+            {
+                yield break;
+            }
+
             speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
             rigidBody.velocity = Vector2.Lerp(startVelocity, GetCurrentDirectionVector().normalized * maxSpeed, speed);
             timeElapsed += Time.deltaTime;
@@ -209,38 +230,32 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        rigidBody.velocity = GetCurrentDirectionVector() * maxSpeed;
-    }
-
-    private IEnumerator LerpVelocity(Vector2 startVelocity, Vector2 endVelocity, float duration, AnimationCurve curve)
-    {
-        float speed = 0;
-        float timeElapsed = 0;
-
-        while (timeElapsed < duration)
-        {
-            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
-            rigidBody.velocity = Vector2.Lerp(startVelocity, endVelocity, speed);
-            timeElapsed += Time.deltaTime;
-
-            yield return new WaitForFixedUpdate();
-        }
-
-        rigidBody.velocity = endVelocity;
-    }
-
-    [Button]
-    private void Accelerate()
-    {
-        //Debug.Log("Accelerate");
-        StartCoroutine(LerpVelocity(rigidBody.velocity, accelerationTime, accelerationCurve));
+        rigidBody.velocity = GetCurrentDirectionVector().normalized * maxSpeed;
     }
 
     [Button]
     private void Decelerate()
     {
         //Debug.Log("Decelerate");
-        StartCoroutine(LerpVelocity(rigidBody.velocity, Vector2.zero, decelerationTime, decelerationCurve));
+        StartCoroutine(Decelerate(rigidBody.velocity, decelerationTime, decelerationCurve));
+    }
+
+    private IEnumerator Decelerate(Vector2 startVelocity, float duration, AnimationCurve curve)
+    {
+        float speed = 0;
+        float timeElapsed = 0;
+        walking = false;
+
+        while (timeElapsed < duration)
+        {
+            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
+            rigidBody.velocity = Vector2.Lerp(startVelocity, Vector2.zero, speed);
+            timeElapsed += Time.deltaTime;
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        rigidBody.velocity = Vector2.zero;
     }
 
     private void ChangeDirection(Vector2 previousDirection, Vector2 newDirection)
