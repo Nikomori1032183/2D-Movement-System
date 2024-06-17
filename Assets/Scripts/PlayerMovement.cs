@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,8 @@ using VInspector;
 
 // TODO
 
-// Features
-// Dash, SFX
-
 // Known Bugs
-// Weird Speed Changes, change direction needs to transfer to a normalized version of velocity when changing to a diagonal direction
-// Pressing three keys in order and then releasing the middle one sets the direction to the first one when it should set it to just the last one
-// Animation Not Matching Movement, could be caused/fixe by above
+// Player slides to a non diagonal direction when releasing direction keys, could be fixed by adding a buffer
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -121,11 +117,23 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 previousDirection = GetCurrentDirectionVector();
 
-        if (currentDirectionKeys.Count > 1) // If there are atleast 2 direction keys currently being pressed, set the direction to the two latest ones and change direction
+        if (currentDirectionKeys.Count >= 2)
         {
             currentDirection.Clear();
             currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
-            currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 2]);
+            
+            if (!ConflictingDirections())
+            {
+                currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 2]);
+            }
+
+            ChangeDirection(previousDirection, GetCurrentDirectionVector());
+        }
+        
+        else if (currentDirectionKeys.Count == 1)
+        {
+            currentDirection.Clear();
+            currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
 
             ChangeDirection(previousDirection, GetCurrentDirectionVector());
 
@@ -135,20 +143,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        else if (currentDirectionKeys.Count > 0) // Else if theres only 1 set it to that and change direction
-        {
-            currentDirection.Clear();
-            currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
-
-            ChangeDirection(previousDirection, GetCurrentDirectionVector());
-
-            if (!walking) // If not already walking, accelerate
-            {
-                Accelerate();
-            }
-        }
-
-        else // If theres is none the current direction remains the same 
+        else
         {
             if (walking) // If already walking, decelerate
             {
@@ -156,9 +151,45 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        
-
         UpdateAnimatorDirection();
+    }
+
+    private bool ConflictingDirections()
+    {
+        switch (currentDirectionKeys[0])
+        {
+            case KeyCode.W:
+                if (currentDirectionKeys.Contains(KeyCode.S))
+                {
+                    return true;
+                }
+
+                break;
+            case KeyCode.A:
+                if (currentDirectionKeys.Contains(KeyCode.D))
+                {
+                    return true;
+                }
+
+                break;
+            case KeyCode.S:
+
+                if (currentDirectionKeys.Contains(KeyCode.W))
+                {
+                    return true;
+                }
+
+                break;
+            case KeyCode.D:
+                if (currentDirectionKeys.Contains(KeyCode.A))
+                {
+                    return true;
+                }
+
+                break;
+        }
+
+        return false;
     }
 
     public List<KeyCode> GetCurrentDirection()
@@ -251,32 +282,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (previousDirection != newDirection) // If the previous and new direction arent the same
         {
-            
-            // normal direction > diagonal direction - max normalized
-            if (CheckDiagonal(previousDirection) == false && CheckDiagonal(newDirection) == true)
+            if (CheckDiagonal(previousDirection) == false && CheckDiagonal(newDirection) == true) // If changing between a normal direction and a diagonal direction, velocity becomes the normalized new direction * the highest velocity value (x or y)
             {
                 Debug.Log("Normal > Diagonal");
                 rigidBody.velocity = newDirection.normalized * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
             }
 
-            // diagonal direction > normal direction - max inverse normalized
-            else if (CheckDiagonal(previousDirection) == true && CheckDiagonal(newDirection) == false)
+            else if (CheckDiagonal(previousDirection) == true && CheckDiagonal(newDirection) == false) // If changing between a diagonal direction and a normal direction, velocity becomes the unnormalized new direction * the highest velocity value (x or y)
             {
                 Debug.Log("Diagonal > Normal");
                 rigidBody.velocity = ChangeMagnitude(newDirection, previousDirection.magnitude) * (Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y)));
             }
 
-            // normal direction > normal direction - max
-            // diagonal direction > diagonal direction - max
-            else
+            else // Else velocity becomes the new direction * the highest velocity value (x or y)
             {
                 Debug.Log("Same > Same");
                 rigidBody.velocity = newDirection * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
             }
-
-
-
-
         }
     }
 
@@ -298,11 +320,6 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(vector * (magnitude / vector.magnitude));
         return vector = vector * (magnitude / vector.magnitude);
     }
-
-    //private Vector2 Denormalize(Vector2 vector)
-    //{
-
-    //}
 
     private void Dash()
     {
