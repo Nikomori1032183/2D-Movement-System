@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 previousDirection = GetCurrentDirectionVector();
 
-        if (currentDirectionKeys.Count > 1) // If there are atleast 2 direction keys currently being pressed, set the direction to the two latest ones
+        if (currentDirectionKeys.Count > 1) // If there are atleast 2 direction keys currently being pressed, set the direction to the two latest ones and change direction
         {
             currentDirection.Clear();
             currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
@@ -129,29 +129,28 @@ public class PlayerMovement : MonoBehaviour
 
             ChangeDirection(previousDirection, GetCurrentDirectionVector());
 
-            if (!walking)
+            if (!walking) // If not already walking, accelerate
             {
                 Accelerate();
-                walking = true;
             }
         }
 
-        else if (currentDirectionKeys.Count > 0) // Else if theres only 1 set it to that
+        else if (currentDirectionKeys.Count > 0) // Else if theres only 1 set it to that and change direction
         {
             currentDirection.Clear();
             currentDirection.Add(currentDirectionKeys[currentDirectionKeys.Count - 1]);
 
             ChangeDirection(previousDirection, GetCurrentDirectionVector());
 
-            if (!walking)
+            if (!walking) // If not already walking, accelerate
             {
                 Accelerate();
             }
         }
 
-        else // If theres is none the current direction remains the same
+        else // If theres is none the current direction remains the same 
         {
-            if (walking)
+            if (walking) // If already walking, decelerate
             {
                 Decelerate();
             }
@@ -196,75 +195,114 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Movement
-    private void Move()
-    {
-        //accelerate quickly to max speed
-        //move at max speed in current direction
-        // decelerate quick but a bit slower to 0
-    }
-
     [Button]
     private void Accelerate()
     {
-        //Debug.Log("Accelerate");
         StartCoroutine(Accelerate(rigidBody.velocity, accelerationTime, accelerationCurve));
     }
 
-    private IEnumerator Accelerate(Vector2 startVelocity, float duration, AnimationCurve curve)
+    private IEnumerator Accelerate(Vector2 startVelocity, float duration, AnimationCurve curve) // Accelerate player to max velocity in current direction based on animation curve over the course of duartion
     {
         float speed = 0;
         float timeElapsed = 0;
         walking = true;
 
-        while (timeElapsed < duration)
+        while (timeElapsed < duration) // While duration not complete
         {
-            if (currentDirectionKeys.Count == 0)
+            if (currentDirectionKeys.Count == 0) // If no keys being pressed stop acceleration
             {
                 yield break;
             }
 
-            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
-            rigidBody.velocity = Vector2.Lerp(startVelocity, GetCurrentDirectionVector().normalized * maxSpeed, speed);
-            timeElapsed += Time.deltaTime;
-            Debug.Log("mag + " + rigidBody.velocity.magnitude);
+            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed)); // Speed set to current value of animation curve based on ratio of duration completed
+            rigidBody.velocity = Vector2.Lerp(startVelocity, GetCurrentDirectionVector().normalized * maxSpeed, speed); // Player velocity set to value between starting velocity and target velocity based on current speed, normalized to prevent faster diagonal movement.
+            timeElapsed += Time.deltaTime; // Time set to current time + time elapsed since last frame
             yield return new WaitForFixedUpdate();
         }
 
-        rigidBody.velocity = GetCurrentDirectionVector().normalized * maxSpeed;
+        rigidBody.velocity = GetCurrentDirectionVector().normalized * maxSpeed; // Once complete snap to max normalized velocity in current direction
     }
 
     [Button]
     private void Decelerate()
     {
-        //Debug.Log("Decelerate");
         StartCoroutine(Decelerate(rigidBody.velocity, decelerationTime, decelerationCurve));
     }
 
-    private IEnumerator Decelerate(Vector2 startVelocity, float duration, AnimationCurve curve)
+    private IEnumerator Decelerate(Vector2 startVelocity, float duration, AnimationCurve curve) // Decelerate player to 0 velocity in current direction based on animation curve over the course of duartion
     {
         float speed = 0;
         float timeElapsed = 0;
         walking = false;
 
-        while (timeElapsed < duration)
+        while (timeElapsed < duration) // While duration not complete
         {
-            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed));
-            rigidBody.velocity = Vector2.Lerp(startVelocity, Vector2.zero, speed);
-            timeElapsed += Time.deltaTime;
+            speed = curve.Evaluate(Mathf.InverseLerp(0, duration, timeElapsed)); // If no keys being pressed stop acceleration
+            rigidBody.velocity = Vector2.Lerp(startVelocity, Vector2.zero, speed); // Player velocity set to value between starting velocity and 0 velocity based on current speed.
+            timeElapsed += Time.deltaTime; // Time set to current time + time elapsed since last frame
 
             yield return new WaitForFixedUpdate();
         }
 
-        rigidBody.velocity = Vector2.zero;
+        rigidBody.velocity = Vector2.zero; // Once complete snap to 0 velocity in current direction
     }
 
-    private void ChangeDirection(Vector2 previousDirection, Vector2 newDirection)
+    private void ChangeDirection(Vector2 previousDirection, Vector2 newDirection) // Transfer velocity between previous direction to new direction
     {
-        if (previousDirection != newDirection)
+        if (previousDirection != newDirection) // If the previous and new direction arent the same
         {
-            rigidBody.velocity = newDirection * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
+            
+            // normal direction > diagonal direction - max normalized
+            if (CheckDiagonal(previousDirection) == false && CheckDiagonal(newDirection) == true)
+            {
+                Debug.Log("Normal > Diagonal");
+                rigidBody.velocity = newDirection.normalized * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
+            }
+
+            // diagonal direction > normal direction - max inverse normalized
+            else if (CheckDiagonal(previousDirection) == true && CheckDiagonal(newDirection) == false)
+            {
+                Debug.Log("Diagonal > Normal");
+                rigidBody.velocity = ChangeMagnitude(newDirection, previousDirection.magnitude) * (Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y)));
+            }
+
+            // normal direction > normal direction - max
+            // diagonal direction > diagonal direction - max
+            else
+            {
+                Debug.Log("Same > Same");
+                rigidBody.velocity = newDirection * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
+            }
+
+
+
+
         }
     }
+
+    private bool CheckDiagonal(Vector2 direction) // If direction is diagonal return true, else return false
+    {
+        if (direction.x != 0 && direction.y != 0)
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+    }
+
+    private Vector2 ChangeMagnitude(Vector2 vector, float magnitude)
+    {
+        Debug.Log(vector * (magnitude / vector.magnitude));
+        return vector = vector * (magnitude / vector.magnitude);
+    }
+
+    //private Vector2 Denormalize(Vector2 vector)
+    //{
+
+    //}
 
     private void Dash()
     {
