@@ -141,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 Accelerate();
             }
+
+            UpdateAnimatorDirection();
         }
 
         else
