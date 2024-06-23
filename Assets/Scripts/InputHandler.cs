@@ -11,6 +11,7 @@ public class InputHandler : MonoBehaviour
 
     [SerializeField] private bool debugging;
 
+
     void Awake()
     {
         current = this;
@@ -77,6 +78,11 @@ public class InputHandler : MonoBehaviour
             heldKeys.Remove(KeyCode.LeftShift);
             ReleaseKey(KeyCode.LeftShift);
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //Debug.Log(GetMouseGridPosition());
+        }
     }
 
     public Vector2 GetMovement()
@@ -132,4 +138,14 @@ public class InputHandler : MonoBehaviour
 
     // Currently with the way this works anything that depends on a input would be told whenever any of the inputs are pressed, even if its not the desired inputs, if one wanted to make that not happen for efficiency
     // they could create seperate events for every key.
+
+    public Vector2 GetMouseWorldPosition()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    public Vector3Int GetMouseGridPosition()
+    {
+        return GridInfo.current.grid.WorldToCell(GetMouseWorldPosition());
+    }
 }

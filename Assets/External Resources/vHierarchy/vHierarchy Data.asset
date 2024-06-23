@@ -21,6 +21,7 @@ MonoBehaviour:
         - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-519420028-0
         - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-257667280-0
         - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-6969460405801029163-0
+        - GlobalObjectId_V1-2-2cda990e2423bbf4892e6590ba056729-1076308354-0
         values:
         - iColor: 5
           icon: Camera Icon
@@ -28,8 +29,10 @@ MonoBehaviour:
           icon: StandaloneInputModule Icon
         - iColor: 0
           icon: AvatarMask On Icon
+        - iColor: 8
+          icon: MeshCollider Icon
       goDatasByInstanceId:
-        keys: 666100006061000076610000
+        keys: 6c610000666100007c610000dcefffff
         values:
         - iColor: 5
           icon: Camera Icon
@@ -37,3 +40,5 @@ MonoBehaviour:
           icon: StandaloneInputModule Icon
         - iColor: 0
           icon: AvatarMask On Icon
+        - iColor: 8
+          icon: MeshCollider Icon

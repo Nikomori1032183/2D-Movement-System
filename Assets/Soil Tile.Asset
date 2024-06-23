@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19977e0e23b2874281c4fa5325f901f, type: 3}
+  m_Name: Soil Tile
+  m_EditorClassIdentifier: 
+  normalSprite: {fileID: 965759783, guid: 3e2edc82a5361c2479e1d7d26a6f15e7, type: 3}
+  tilledSprite: {fileID: 1258669816, guid: 4e8fc9aafcc62344f85d0665dfd1fd4f, type: 3}
+  wateredSprite: {fileID: 1251337786, guid: 4e8fc9aafcc62344f85d0665dfd1fd4f, type: 3}
