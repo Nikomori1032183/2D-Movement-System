@@ -5,21 +5,26 @@ using UnityEngine;
 
 public class FarmingPrototype : MonoBehaviour
 {
+    public static FarmingPrototype current;
+
     [SerializeField] private TextMeshProUGUI currentToolText;
 
     public enum Tool
     {
-        Hoe, Watering_Can
+        Hoe, Watering_Can, Plant_Seeds
     }
 
     public Tool currentTool;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     private void Start()
     {
         UpdateCurrentTool();
     }
-
-    
 
     private void UpdateCurrentTool()
     {
@@ -35,6 +40,12 @@ public class FarmingPrototype : MonoBehaviour
     public void WateringCan()
     {
         currentTool = Tool.Watering_Can;
+        UpdateCurrentTool();
+    }
+
+    public void Plant()
+    {
+        currentTool = Tool.Plant_Seeds;
         UpdateCurrentTool();
     }
 

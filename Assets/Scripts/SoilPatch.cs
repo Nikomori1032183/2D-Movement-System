@@ -16,7 +16,21 @@ public class SoilPatch : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Ya");
+        Debug.Log("MouseDown");
+        if (FarmingPrototype.current.currentTool == FarmingPrototype.Tool.Hoe)
+        {
+            Hoe();
+        }
+
+        else if (FarmingPrototype.current.currentTool == FarmingPrototype.Tool.Watering_Can)
+        {
+            Water();
+        }
+
+        else if (FarmingPrototype.current.currentTool == FarmingPrototype.Tool.Plant_Seeds)
+        {
+            Plant();
+        }
     }
 
     [Button]
@@ -44,7 +58,7 @@ public class SoilPatch : MonoBehaviour
     [Button]
     public void Plant()
     {
-        if (plantState == -1)
+        if (plantState == -1 && state > 0)
         {
             plantState = 0;
         }
@@ -55,7 +69,7 @@ public class SoilPatch : MonoBehaviour
     [Button]
     public void Grow()
     {
-        if (plantState > -1 && plantState < 5)
+        if (plantState > -1 && plantState < 5 && state > 1)
         {
             plantState++;
         }
