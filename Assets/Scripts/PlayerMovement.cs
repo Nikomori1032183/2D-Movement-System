@@ -286,19 +286,19 @@ public class PlayerMovement : MonoBehaviour
         {
             if (CheckDiagonal(previousDirection) == false && CheckDiagonal(newDirection) == true) // If changing between a normal direction and a diagonal direction, velocity becomes the normalized new direction * the highest velocity value (x or y)
             {
-                Debug.Log("Normal > Diagonal");
+                //Debug.Log("Normal > Diagonal");
                 rigidBody.velocity = newDirection.normalized * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
             }
 
             else if (CheckDiagonal(previousDirection) == true && CheckDiagonal(newDirection) == false) // If changing between a diagonal direction and a normal direction, velocity becomes the unnormalized new direction * the highest velocity value (x or y)
             {
-                Debug.Log("Diagonal > Normal");
+                //Debug.Log("Diagonal > Normal");
                 rigidBody.velocity = ChangeMagnitude(newDirection, previousDirection.magnitude) * (Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y)));
             }
 
             else // Else velocity becomes the new direction * the highest velocity value (x or y)
             {
-                Debug.Log("Same > Same");
+                //Debug.Log("Same > Same");
                 rigidBody.velocity = newDirection * Mathf.Max(Mathf.Abs(rigidBody.velocity.x), Mathf.Abs(rigidBody.velocity.y));
             }
         }
@@ -319,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 ChangeMagnitude(Vector2 vector, float magnitude)
     {
-        Debug.Log(vector * (magnitude / vector.magnitude));
+        //Debug.Log(vector * (magnitude / vector.magnitude));
         return vector = vector * (magnitude / vector.magnitude);
     }
 

@@ -16,7 +16,7 @@ public class SoilPatch : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("MouseDown");
+        //Debug.Log("MouseDown");
         if (FarmingPrototype.current.currentTool == FarmingPrototype.Tool.Hoe)
         {
             Hoe();
